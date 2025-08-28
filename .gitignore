@@ -44,5 +44,4 @@ Thumbs.db
 
 # FHIR validator files
 validator_cli.jar
-*.json
 *.tgz
