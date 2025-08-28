@@ -1,0 +1,15 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "twcore-validator-mcp"
+version = "0.1.0"
+description = "TW Core FHIR Validator MCP Server"
+dependencies = [
+    "fastmcp",
+    "requests"
+]
+
+[project.scripts]
+twcore-validator-mcp = "twcore_validator_mcp:main"
