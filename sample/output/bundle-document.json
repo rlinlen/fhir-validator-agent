@@ -1,16 +1,84 @@
 {
   "resourceType": "Bundle",
-  "id": "patient-bundle-example",
-  "meta": {
-    "profile": [
-      "https://twcore.mohw.gov.tw/ig/twcore/StructureDefinition/Bundle-twcore"
-    ]
+  "id": "bundle-document-example",
+  "identifier": {
+    "system": "https://www.hospital.org.tw/bundle-identifier",
+    "value": "bundle-doc-001"
   },
-  "type": "collection",
-  "timestamp": "2025-08-30T11:25:18.937Z",
+  "type": "document",
+  "timestamp": "2025-08-30T13:58:51.949Z",
   "entry": [
     {
-      "fullUrl": "Patient/patient-0001",
+      "fullUrl": "https://twcore.mohw.gov.tw/ig/twcore/Composition/composition-vitalsign-document",
+      "resource": {
+        "resourceType": "Composition",
+        "id": "composition-vitalsign-document",
+        "meta": {
+          "profile": [
+            "https://twcore.mohw.gov.tw/ig/twcore/StructureDefinition/Composition-twcore"
+          ]
+        },
+        "status": "final",
+        "type": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "11503-0",
+              "display": "Medical records"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://loinc.org",
+                "code": "47039-3",
+                "display": "Hospital Admission history and physical note"
+              }
+            ]
+          }
+        ],
+        "subject": {
+          "reference": "Patient/patient-0001"
+        },
+        "date": "2025-08-30T13:58:51.949Z",
+        "author": [
+          {
+            "reference": "Practitioner/practitioner-example"
+          }
+        ],
+        "title": "生命徵象記錄文件",
+        "confidentiality": "N",
+        "section": [
+          {
+            "title": "生命徵象",
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "8716-3",
+                  "display": "Vital signs note"
+                }
+              ]
+            },
+            "entry": [
+              {
+                "reference": "Observation/obs-bloodpressure-0001-1"
+              },
+              {
+                "reference": "Observation/obs-bloodpressure-0001-2"
+              },
+              {
+                "reference": "Observation/obs-bloodpressure-0001-3"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "https://twcore.mohw.gov.tw/ig/twcore/Patient/patient-0001",
       "resource": {
         "resourceType": "Patient",
         "id": "patient-0001",
@@ -21,7 +89,6 @@
         },
         "identifier": [
           {
-            "use": "official",
             "type": {
               "coding": [
                 {
@@ -30,7 +97,7 @@
                 }
               ]
             },
-            "system": "https://example.org/patient-ids",
+            "system": "https://www.hospital.org.tw",
             "value": "0001"
           }
         ],
@@ -39,8 +106,7 @@
           {
             "use": "official",
             "text": "Len",
-            "family": "Len",
-            "given": ["Len"]
+            "family": "Len"
           }
         ],
         "gender": "unknown",
@@ -48,10 +114,46 @@
       }
     },
     {
-      "fullUrl": "Observation/obs-bp-0001-1",
+      "fullUrl": "https://twcore.mohw.gov.tw/ig/twcore/Practitioner/practitioner-example",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "practitioner-example",
+        "meta": {
+          "profile": [
+            "https://twcore.mohw.gov.tw/ig/twcore/StructureDefinition/Practitioner-twcore"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "MD"
+                }
+              ]
+            },
+            "system": "https://www.hospital.org.tw",
+            "value": "DOC001"
+          }
+        ],
+        "active": true,
+        "name": [
+          {
+            "use": "official",
+            "text": "範例醫師",
+            "family": "範例",
+            "given": ["醫師"]
+          }
+        ],
+        "gender": "unknown"
+      }
+    },
+    {
+      "fullUrl": "https://twcore.mohw.gov.tw/ig/twcore/Observation/obs-bloodpressure-0001-1",
       "resource": {
         "resourceType": "Observation",
-        "id": "obs-bp-0001-1",
+        "id": "obs-bloodpressure-0001-1",
         "meta": {
           "profile": [
             "https://twcore.mohw.gov.tw/ig/twcore/StructureDefinition/Observation-bloodPressure-twcore"
@@ -81,6 +183,11 @@
         "subject": {
           "reference": "Patient/patient-0001"
         },
+        "performer": [
+          {
+            "reference": "Practitioner/practitioner-example"
+          }
+        ],
         "effectiveDateTime": "2025-08-28T00:00:00Z",
         "component": [
           {
@@ -121,10 +228,10 @@
       }
     },
     {
-      "fullUrl": "Observation/obs-bp-0001-2",
+      "fullUrl": "https://twcore.mohw.gov.tw/ig/twcore/Observation/obs-bloodpressure-0001-2",
       "resource": {
         "resourceType": "Observation",
-        "id": "obs-bp-0001-2",
+        "id": "obs-bloodpressure-0001-2",
         "meta": {
           "profile": [
             "https://twcore.mohw.gov.tw/ig/twcore/StructureDefinition/Observation-bloodPressure-twcore"
@@ -154,6 +261,11 @@
         "subject": {
           "reference": "Patient/patient-0001"
         },
+        "performer": [
+          {
+            "reference": "Practitioner/practitioner-example"
+          }
+        ],
         "effectiveDateTime": "2025-08-28T01:00:00Z",
         "component": [
           {
@@ -194,10 +306,10 @@
       }
     },
     {
-      "fullUrl": "Observation/obs-bp-0001-3",
+      "fullUrl": "https://twcore.mohw.gov.tw/ig/twcore/Observation/obs-bloodpressure-0001-3",
       "resource": {
         "resourceType": "Observation",
-        "id": "obs-bp-0001-3",
+        "id": "obs-bloodpressure-0001-3",
         "meta": {
           "profile": [
             "https://twcore.mohw.gov.tw/ig/twcore/StructureDefinition/Observation-bloodPressure-twcore"
@@ -227,6 +339,11 @@
         "subject": {
           "reference": "Patient/patient-0001"
         },
+        "performer": [
+          {
+            "reference": "Practitioner/practitioner-example"
+          }
+        ],
         "effectiveDateTime": "2025-08-28T02:00:00Z",
         "component": [
           {
