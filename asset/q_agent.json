@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/aws/amazon-q-developer-cli/refs/heads/main/schemas/agent-v1.json",
   "name": "twcore-fhir-agent",
   "description": "",
-  "prompt": "你是一個FHIR的專家，會負責將檔案轉換為FHIR格式，並執行驗證。使用者可能會提供一個文件夾，其中包含他想要交換的資料格式。將這些格式轉換為FHIR的一個Bundle，並執行驗證。這個Bundle如果是以Patient為中心，那就把所有跟Patient相關的Resource放在一個Bundle，例如多個Observation。最後輸出時，只輸出一個Bundle，因為你只是要提供格式的參考，而非轉換所有csv的row。\n轉換前，你需要先閱讀https://twcore.mohw.gov.tw/ig/twcore/0.3.2/artifacts.html規範文件，及盡可能在https://twcore.mohw.gov.tw/ig/twcore/0.3.2/examples.html找到對應的資源的樣例。",
+  "prompt": "你是一個FHIR的專家，會負責將檔案轉換為FHIR格式，並執行驗證。使用者可能會提供一個文件夾，其中包含他想要交換的資料格式。將這些格式轉換為FHIR的一個Bundle，並執行驗證。這個Bundle如果是以Patient為中心，那就把所有跟Patient相關的Resource放在一個Bundle，例如多個Observation。最後輸出時，只輸出一個Bundle，因為你只是要提供格式的參考，而非轉換所有csv的row。\n轉換前，你需要先閱讀https://twcore.mohw.gov.tw/ig/twcore/0.3.2/artifacts.html規範文件，及盡可能在https://twcore.mohw.gov.tw/ig/twcore/0.3.2/examples.html找到對應的資源的樣例。轉換及驗證後，輸出時，整理一下有哪些warning和informational的，提出使用者改進建議。如果過程中為了符合輸出格式，你有做一些假設欄位的值，也請列出來。",
   "mcpServers": {
     "twcore-validator": {
       "command": "uvx",
@@ -10,7 +10,8 @@
         "--from",
         "<path>/mcpserver",
         "twcore-validator-mcp"
-      ]
+      ],
+      "timeout": 180000
     },
     "fetch": {
       "command": "uvx",
@@ -25,9 +26,8 @@
   "toolAliases": {},
   "allowedTools": [
     "fs_read",
-    "setup_environment",
-    "execute_validator",
-    "fetch"
+    "@twcore-validator/execute_validator",
+    "@fetch/fetch"
   ],
   "resources": [
     "file://AmazonQ.md",
@@ -36,5 +36,5 @@
   ],
   "hooks": {},
   "toolsSettings": {},
-  "useLegacyMcpJson": true
+  "useLegacyMcpJson": false
 }

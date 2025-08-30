@@ -44,11 +44,17 @@ q chat
 
 Paste the content from (./asset/q_agent.json). You need to first change the "<path>/mcpserver" in args to your local path.
 
-/agent swap
-選擇twcore-fhir-agent / Select twcore-fhir-agent
+執行
+```
+q chat --agent twcore-fhir-agent
+```
+第一次執行需等待3分鐘下載validator.jar。
+Run the command and wait for 3 minutes before you continue for the first time, as it needs to download the validator.jar
+```
+q chat --agent twcore-fhir-agent
+```
 
 貼上需要轉換的文件夾。執行。
-
 Paste the folder that needs conversion. Execute.
 
 2-2. 單純使用MCP / Using MCP Only
@@ -86,7 +92,7 @@ q configure add-mcp-server twcore-validator <path>/mcpserver/twcore_validator_mc
 
 ### 核心功能 / Core Functions
 
-- `setup_environment()` - 自動設置 TW Core IG 驗證環境 / Automatically setup TW Core IG validation environment
+-  自動設置 TW Core IG 驗證環境 / Automatically setup TW Core IG validation environment
 - `execute_validator(json_file)` - 執行 FHIR 驗證 / Execute FHIR validation
 
 ### 智能代理功能 / Agent Capabilities
@@ -103,3 +109,8 @@ q configure add-mcp-server twcore-validator <path>/mcpserver/twcore_validator_mc
 3. **驗證**: 使用 TW Core IG 進行 FHIR 格式驗證 / **Validation**: FHIR format validation using TW Core IG
 4. **迭代**: 根據驗證結果自動調整和重新驗證 / **Iteration**: Automatic adjustment and re-validation based on results
 5. **輸出**: 符合 TW Core 標準的 FHIR 資源 / **Output**: TW Core compliant FHIR resources
+
+
+## 後續改進 / Future Improvement
+
+1. **驗證編碼**：納入更多編碼驗證的tool,如SNOMED,IONIC等

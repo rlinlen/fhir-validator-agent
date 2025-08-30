@@ -1,15 +1,16 @@
 {
   "resourceType": "Bundle",
-  "id": "patient-vitalsign-bundle",
+  "id": "patient-bundle-example",
   "meta": {
     "profile": [
       "https://twcore.mohw.gov.tw/ig/twcore/StructureDefinition/Bundle-twcore"
     ]
   },
   "type": "collection",
+  "timestamp": "2025-08-30T11:25:18.937Z",
   "entry": [
     {
-      "fullUrl": "https://www.hospital.org.tw/Patient/patient-0001",
+      "fullUrl": "Patient/patient-0001",
       "resource": {
         "resourceType": "Patient",
         "id": "patient-0001",
@@ -17,10 +18,6 @@
           "profile": [
             "https://twcore.mohw.gov.tw/ig/twcore/StructureDefinition/Patient-twcore"
           ]
-        },
-        "text": {
-          "status": "generated",
-          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>病人基本資料</b></p><p><b>病歷號</b>：0001</p><p><b>姓名</b>：Len</p><p><b>性別</b>：未知</p><p><b>出生日期</b>：1990-01-01</p></div>"
         },
         "identifier": [
           {
@@ -33,7 +30,7 @@
                 }
               ]
             },
-            "system": "https://www.hospital.org.tw",
+            "system": "https://example.org/patient-ids",
             "value": "0001"
           }
         ],
@@ -51,7 +48,7 @@
       }
     },
     {
-      "fullUrl": "https://www.hospital.org.tw/Observation/obs-bp-0001-1",
+      "fullUrl": "Observation/obs-bp-0001-1",
       "resource": {
         "resourceType": "Observation",
         "id": "obs-bp-0001-1",
@@ -124,7 +121,7 @@
       }
     },
     {
-      "fullUrl": "https://www.hospital.org.tw/Observation/obs-bp-0001-2",
+      "fullUrl": "Observation/obs-bp-0001-2",
       "resource": {
         "resourceType": "Observation",
         "id": "obs-bp-0001-2",
@@ -197,7 +194,7 @@
       }
     },
     {
-      "fullUrl": "https://www.hospital.org.tw/Observation/obs-bp-0001-3",
+      "fullUrl": "Observation/obs-bp-0001-3",
       "resource": {
         "resourceType": "Observation",
         "id": "obs-bp-0001-3",

@@ -13,15 +13,17 @@ from mcp.server.fastmcp import FastMCP
 
 mcp = FastMCP("TW Core FHIR Validator")
 
-def _is_environment_setup():
+def _is_environment_setup(version):
     """Check if environment is already set up"""
     home = Path.home()
-    packages_dir = home / ".fhir" / "packages" / "tw.gov.mohw.twcore#0.3.2"
-    return packages_dir.exists() and os.path.exists("validator_cli.jar")
+    packages_dir = home / ".fhir" / "packages"
+    validator_jar = packages_dir / "validator_cli.jar"
+    twcore_dir = packages_dir / f"tw.gov.mohw.twcore#{version}"
+    return twcore_dir.exists() and validator_jar.exists()
 
 def _setup_environment_if_needed(version="0.3.2"):
     """Setup environment only if not already done"""
-    if _is_environment_setup():
+    if _is_environment_setup(version):
         return "Environment already set up"
     
     try:
@@ -51,23 +53,19 @@ def _setup_environment_if_needed(version="0.3.2"):
             tar.extractall(target_dir)
         os.remove(package_file)
         
-        # Download validator CLI
+        # Download validator CLI to packages directory
+        validator_jar = packages_dir / "validator_cli.jar"
         validator_url = "https://github.com/hapifhir/org.hl7.fhir.core/releases/latest/download/validator_cli.jar"
         response = requests.get(validator_url)
         response.raise_for_status()
         
-        with open("validator_cli.jar", 'wb') as f:
+        with open(validator_jar, 'wb') as f:
             f.write(response.content)
         
         return f"Setup complete. Package installed in: {target_dir}"
         
     except Exception as e:
         return f"Setup failed: {str(e)}"
-
-@mcp.tool()
-def setup_environment(version: str = "0.3.2") -> str:
-    """Setup TW Core IG validation environment (manual setup)"""
-    return _setup_environment_if_needed(version)
 
 @mcp.tool()
 def execute_validator(json_file: str, ig_version: str = "tw.gov.mohw.twcore") -> str:
@@ -81,8 +79,11 @@ def execute_validator(json_file: str, ig_version: str = "tw.gov.mohw.twcore") ->
         if not os.path.exists(json_file):
             return f"Error: File {json_file} not found"
         
+        home = Path.home()
+        validator_jar = home / ".fhir" / "packages" / "validator_cli.jar"
+        
         cmd = [
-            "java", "-jar", "validator_cli.jar",
+            "java", "-jar", str(validator_jar),
             json_file,
             "-version", "4.0",
             "-ig", ig_version
@@ -101,6 +102,8 @@ def execute_validator(json_file: str, ig_version: str = "tw.gov.mohw.twcore") ->
         return f"Validation failed: {str(e)}"
 
 def main():
+    print("Starting TW Core FHIR Validator MCP Server...")
+    _setup_environment_if_needed()
     mcp.run()
 
 if __name__ == "__main__":
